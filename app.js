@@ -68,8 +68,24 @@ function start() {
           break;
 
         case "update an employee":
-        break;
+          break;
 
+        case "add a role":
+          break;
+
+        case "remove a role":
+          break;
+
+        case "add a department":
+          break;
+
+        case "remove a department":
+          break;
+
+        case "exit":
+          break;
+
+      
         
       }
     }
