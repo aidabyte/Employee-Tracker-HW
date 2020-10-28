@@ -1,26 +1,56 @@
-var mysql = require("mysql");
-var inquirer = require("inquirer");
+const mysql = require("mysql");
+const inquirer = require("inquirer");
+const tables = require("console.tables")
 
+// any port can connect
+var PORT = process.env.PORT || 3000;
+// MySQL DB Connection Information 
 var connection = mysql.createConnection({
+  
+
   host: "localhost",
 
-  // Your port; if not 3306
-  port: 3306,
 
-  // Your username
+  port : 3000,
+
+// change this to your own
   user: "root",
 
-  // Your password
-  password: "password",
-  
-});
 
-// connection.connect(function(err) {
-//   if (err) throw err;
-//   console.log("connected as id " + connection.threadId);
-//   connection.query("SELECT * from songs", function(error,results,fields){
-//       if (error) throw error;
-//       console.log("result is" , results);
-//   });
-//   connection.end();
-// });
+  password: "password",
+
+
+  database: "employee_db"
+
+
+  });
+  connection.connect(function(err) {
+    if (err) throw err;
+    // run the start function after the connection is made to prompt the user
+    start();
+  });
+
+
+  function start() {
+    inquirer
+      .prompt({
+        name: "userAction",
+        type: "list",
+        message: "What would you like to do?",
+        choices: [
+         "view all employees",
+         "view all departments", 
+         "view all roles",
+         "add an employee",
+         "remove employee",
+         "update an employee",
+         "add a role",
+         "remove a role",
+         "add a department",
+         "remove a department",
+
+        ]
+      })
+    }
+     
+
