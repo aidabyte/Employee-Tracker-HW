@@ -53,9 +53,11 @@ function start() {
       
       switch (response.choice){
        case "view all employees":
+         viewAllEmployees();
          break;
         
         case "view all departments":
+          viewAllDepartments();
           break;
 
         case "view all roles":
@@ -90,4 +92,21 @@ function start() {
       }
     }
     )};
+
+    function viewAllEmployees () {
+      connection.query("SELECT * FROM employees", function (err, result) {
+        if (err) throw err;
+        start();
+
+    })
+  }
+
+    function viewAllDepartments() {
+      connection.query("SELECT * FROM departments", function (err, result) {
+        if (err) throw err;
+        start();
+    }
+      )}
+
+
 
