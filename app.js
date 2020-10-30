@@ -74,6 +74,7 @@ function start() {
           break;
 
         case "update an employee":
+          updateEmployee();
           break;
 
         case "add a role":
@@ -239,12 +240,56 @@ function start() {
             name: "roleName",
             type: "list",
             message: "whats the employees role?",
-            // choices: titles
+            choices: titles
             
           }
           
+        ]).then(function ({ firstName, lastName, roleName}) {
+          console.log(firstName, lastName, roleName);
+          const foundRole =  result.find(function(role) {
+            return roleName === role.title
+          })
+          
+          connection.query(
+            "INSERT into employee SET ?", 
+            {
+              first_name: firstName,
+              last_name: lastName,
+              role_id : foundRole.id
+              
+            },
+            (err,data) => {
+              if (err) throw (err)
+              console.table(data)
+              viewAllDepartments();
+            }
+            
+          )
+          })
+        
+      
+      
+      });
+        }
+
+    function updateEmployee() {
+      connection.query("SELECT first_name, last_name, role_id FROM employee", function (err, result) {
+        if (err) throw err;
+        var employee = result.map(function(role) {
+          return role.name
+
+        })
+        console.log(employee)
+
+
+         
+      })
+    
+  }
+
+  
+    
           
 
       
-      
-
+  
