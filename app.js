@@ -108,5 +108,12 @@ function start() {
     }
       )}
 
+      function viewAllRoles() {
+        connection.query("SELECT * FROM departments", function (err, result) {
+          if (err) throw err;
+          start();
+
+      }
+
 
 
