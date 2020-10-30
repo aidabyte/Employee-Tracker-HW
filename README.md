@@ -18,7 +18,7 @@
  4. Open Terminal
  5. Change the current working directory to the location where you want the cloned directory to be made.
  6. Type ‘git clone’ and then paste the URL you copied
- 	- $ git clone https://github.com/aidabyte/Work-Day-Scheduler.git
+ 	- $ git clone https://github.com/aidabyte/Employee-Tracker-HW.git
  7. Press Enter. Your local clone will be created.
 
   ## Technologies
