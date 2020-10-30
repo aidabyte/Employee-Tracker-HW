@@ -275,7 +275,7 @@ function start() {
     function updateEmployee() {
       connection.query("SELECT first_name, last_name, role_id FROM employee", function (err, result) {
         if (err) throw err;
-        var employee = result.map(function(role) {
+        var upEmployee = result.map(function(role) {
           return role.name
 
         })
@@ -284,8 +284,26 @@ function start() {
 
          
       })
+    }
     
-  }
+  //     inquirer.prompt ([
+  //       {
+  //         name: "newRole",
+  //         type: "input",
+  //         message: "Whats your new role?"
+  //       },
+  //       {
+  //         name: "newEmployeeName",
+  //         type: "list",
+  //         message: "Which employee role are you updating?",
+  //         choices: upEmployee
+  //       },
+
+  //     ]).then(function(response) {
+  //       console.log(response)
+  //       const updatedEm = result.find(function(role))
+  //     })
+  // }
 
   
     
