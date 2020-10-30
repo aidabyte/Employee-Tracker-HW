@@ -243,7 +243,7 @@ function start() {
             choices: titles
             
           }
-          
+           
         ]).then(function ({ firstName, lastName, roleName}) {
           console.log(firstName, lastName, roleName);
           const foundRole =  result.find(function(role) {
