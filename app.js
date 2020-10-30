@@ -9,7 +9,8 @@ var connection = mysql.createConnection({
   host: "localhost",
 
   // Your port; if not 3306
-  PORT: 3000,
+
+ PORT: 3000,
 
   // Your username
   user: "root",
@@ -50,6 +51,7 @@ function start() {
 
       ]
     }).then(function (response) {
+      console.log(response);
       
       switch (response.choice){
        case "view all employees":
@@ -61,9 +63,11 @@ function start() {
           break;
 
         case "view all roles":
+          viewAllRoles();
           break;
 
         case "add an employee":
+          addEmployee();
           break;
         
         case "remove employee":
@@ -73,12 +77,14 @@ function start() {
           break;
 
         case "add a role":
+          addRole();
           break;
 
         case "remove a role":
           break;
 
         case "add a department":
+          addDepartment();
           break;
 
         case "remove a department":
@@ -94,26 +100,151 @@ function start() {
     )};
 
     function viewAllEmployees () {
-      connection.query("SELECT * FROM employees", function (err, result) {
+      connection.query("SELECT * FROM employee", function (err, result) {
         if (err) throw err;
+        console.table(result)
         start();
 
     })
   }
 
     function viewAllDepartments() {
-      connection.query("SELECT * FROM departments", function (err, result) {
+      connection.query("SELECT * FROM department", function (err, result) {
         if (err) throw err;
+        console.table(result)
         start();
     }
       )}
 
+      function addDepartment(){
+        inquirer.prompt ([
+          {
+            name: "depName",
+            type: "input",
+            message: "what department would you like to add?"
+            
+          },
+        ]).then(function(response){
+          console.log(response)
+          connection.query(
+            "INSERT into department SET ?", 
+            {
+              name: response.depName,  
+            },
+            (err,data) => {
+              if (err) throw (err)
+              console.table(data)
+              viewAllDepartments();
+            }
+            
+          )
+        })
+          
+
+      
+      }
+
       function viewAllRoles() {
-        connection.query("SELECT * FROM departments", function (err, result) {
+        connection.query("SELECT * FROM role", function (err, result) {
           if (err) throw err;
+          console.table(result)
           start();
 
       }
+        )}
 
+        function addRole(){
+          connection.query("SELECT * FROM department", function (err, result) {
 
+            if (err) throw err;
+            var allDepArr = result.map(function(department) {
+              return department.name
+              
+            })
+            console.log(allDepArr)
+            
+            
+
+          
+  
+
+          inquirer.prompt ([
+            {
+              name: "titleRole",
+              type: "input",
+              message: "whats the title of your role?"
+              
+            },
+            {
+              name: "salaryRole",
+              type: "input",
+              message: "whats the salary that you make?"
+
+            },
+            {
+              name: "depRole",
+              type: "list",
+              message: "whats your department?",
+              choices: allDepArr
+
+            },
+
+          ]).then(function(response){
+            console.log(response)
+            const foundDep = result.find(function(department) {
+              return department.name === response.depRole
+            })
+            console.log(foundDep)
+            connection.query(
+              "INSERT into role SET ?", 
+              {
+                title: response.titleRole,
+                salary: response.salaryRole,
+                department_id: foundDep.id
+              },
+              (err,data) => {
+                if (err) throw (err)
+                console.table(data)
+                viewAllDepartments();
+              }
+              
+            )
+
+          })
+          })
+        }
+
+        function addEmployee() {
+          connection.query("SELECT * FROM role", function (err, result) {
+            if (err) throw err;
+            var titles = result.map(function(role) {
+              return role.title 
+
+              
+            })
+            console.log(titles)
+          inquirer.prompt ([
+          {
+            name: "firstName",
+            type: "input",
+            message: "whats the employees first name?"
+            
+          },
+          {
+            name: "lastName",
+            type: "input",
+            message: "whats the employees last name?"
+          },
+          {
+            name: "roleName",
+            type: "list",
+            message: "whats the employees role?",
+            // choices: titles
+            
+          }
+          
+          
+
+      
+      
 
