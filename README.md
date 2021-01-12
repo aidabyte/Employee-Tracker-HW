@@ -12,6 +12,7 @@
   ## Link
   
   ## Screenshot
+  ![Example screenshot](employeetrackerhw.png)
   
   
   ## Setup
