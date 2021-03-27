@@ -1,4 +1,4 @@
-# Employee-Tracker-HW
+# Employee-Tracker
 
  > A command line based employee tracker system for management to track departments ,roles, and employees. This would be helpful for companies to track what department,role, and what employee they have in their system. This database easily filters out the type of employee you are looking for through MYSQL. Used multiple quiries to display the information for each specific option. This employee tracker included adding, updating, and  deleting the existing information in the database.
 
